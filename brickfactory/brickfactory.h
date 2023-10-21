@@ -114,7 +114,7 @@ class BRICKFACTORY_API PAD : public BASE
 			switch (__to_where)
 			{
 				case dirs::left:
-					if (x - speed >= 50.0f)
+					if (x - speed >= 0.0f)
 					{
 						x -= speed;
 						SetEdges();
@@ -123,7 +123,7 @@ class BRICKFACTORY_API PAD : public BASE
 					break;
 
 				case dirs::right:
-					if (ex + speed <= 750.0f)
+					if (ex + speed <= 800.0f)
 					{
 						x += speed;
 						SetEdges();
