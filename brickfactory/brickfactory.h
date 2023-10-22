@@ -90,7 +90,7 @@ class BRICKFACTORY_API BRICK_BASE : public BASE
 class BRICKFACTORY_API PAD : public BASE
 {
 	protected:
-		float speed = 10.0f;
+		float speed = 20.0f;
 
 	public:
 		pads type = pads::normal;
@@ -101,9 +101,9 @@ class BRICKFACTORY_API PAD : public BASE
 		{
 			if (__what_pad == pads::net)
 			{
-				NewDims(800.0f, 100.0f);
+				NewDims(800.0f, 40.0f);
 				type = pads::net;
-				net_counter = 500;
+				net_counter = 1000;
 			}
 		};
 
@@ -164,7 +164,7 @@ class BRICKFACTORY_API PAD : public BASE
 class BRICKFACTORY_API BALL :public BASE
 {
 	protected:
-		float speed = 5.0f;
+		float speed = 3.0f;
 		int count = 0;
 		int delay = 8;
 
@@ -201,9 +201,9 @@ class BRICKFACTORY_API BALL :public BASE
 		{
 			if (type == balls::bullet)
 			{
-				if (ey - 8.0f + speed <= 50.0f)
+				if (ey - 5.0f + speed <= 50.0f)
 				{
-					y -= 8.0f + speed;
+					y -= 5.0f + speed;
 					SetEdges();
 					return true;
 				}
@@ -228,7 +228,7 @@ class BRICKFACTORY_API BALL :public BASE
 						break;
 
 					case dirs::down:
-						if (y + speed <= 500.0f)
+						if (y + speed <= 550.0f)
 						{
 							y += speed;
 							SetEdges();
@@ -299,7 +299,7 @@ class BRICKFACTORY_API BALL :public BASE
 						break;
 
 					case dirs::down_left:
-						if (y + speed <= 500.0f && x - speed >= 0.0f)
+						if (y + speed <= 550.0f && x - speed >= 0.0f)
 						{
 							x -= speed;
 							y += speed;
@@ -308,17 +308,17 @@ class BRICKFACTORY_API BALL :public BASE
 						}
 						else
 						{
-							if (y + speed > 500.0f)break;
+							if (y + speed > 550.0f)break;
 							else if (x - speed < 0.0f)
 							{
-								dir = dirs::up_right;
+								dir = dirs::down_right;
 								return true;
 							}
 						}
 						break;
 
 					case dirs::down_right:
-						if (y + speed <= 500.0f && ex + speed <= 800.0f)
+						if (y + speed <= 550.0f && ex + speed <= 800.0f)
 						{
 							x += speed;
 							y += speed;
@@ -327,10 +327,10 @@ class BRICKFACTORY_API BALL :public BASE
 						}
 						else
 						{
-							if (y + speed > 500.0f)break;
+							if (y + speed > 550.0f)break;
 							else if (ex + speed > 800.0f)
 							{
-								dir = dirs::up_left;
+								dir = dirs::down_left;
 								return true;
 							}
 						}
@@ -341,35 +341,35 @@ class BRICKFACTORY_API BALL :public BASE
 						break;
 
 					case dirs::pad_dir_left:
-						if(y - speed * lambda >= 50.0f && x - speed >= 0.0f)
+						if(y - speed >= 50.0f && x - speed * lambda >= 0.0f)
 						{
-							y -= speed * lambda;
-							x -= speed;
+							y -= speed;
+							x -= speed * lambda;
 							SetEdges();
 							return true;
 						}
 						else
 						{
-							if (y - speed * lambda < 50.0f && x - speed < 0.0f)dir = dirs::down_right;
-							else if (x - speed < 0.0f)dir = dirs::up_right;
-							else if (y - speed * lambda < 50.0f)dir = dirs::down_left;
+							if (y - speed < 50.0f && x - speed * lambda < 0.0f)dir = dirs::down_right;
+							else if (x - speed * lambda < 0.0f)dir = dirs::up_right;
+							else if (y - speed < 50.0f)dir = dirs::down_left;
 							return true;
 						}
 						break;
 
 					case dirs::pad_dir_right:
-						if (y - speed * lambda >= 50.0f && ex + speed <= 800.0f)
+						if (y - speed >= 50.0f && ex + speed * lambda <= 800.0f)
 						{
-							y -= speed * lambda;
-							x += speed;
+							y -= speed;
+							x += speed * lambda;
 							SetEdges();
 							return true;
 						}
 						else
 						{
-							if (y - speed * lambda < 50.0f && ex + speed > 800.0f)dir = dirs::down_left;
-							else if (ex + speed > 800.0f)dir = dirs::up_left;
-							else if (y - speed * lambda < 50.0f)dir = dirs::down_right;
+							if (y - speed < 50.0f && ex + speed * lambda > 800.0f)dir = dirs::down_left;
+							else if (ex + speed * lambda > 800.0f)dir = dirs::up_left;
+							else if (y - speed < 50.0f)dir = dirs::down_right;
 							return true;
 						}
 						break;
